@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	
+	<!-- -Cargar archivo properties -->
+	<context:property-placeholder location="classpath:sport.properties"/>
+	
+	
+	
+    <!-- Define your beans here -->
+    
+    	<!-- 
+		Agregue una configuración de registrador para ver los mensajes de registro.		
+		- Para registros más detallados, establezca los valores en "FINEST"
+		- Para obtener información sobre los niveles de registro, consulte: http://www.vogella.com/tutorials/Logging/article.html
+	 -->
+    <bean id="myLoggerConfig" class="com.gabriela.springdemo.MyLoggerConfig" init-method="initLogger">
+    	<property name="rootLoggerLevel" value="FINE" />
+    	<property name="printedLoggerLevel" value="FINE"/>
+    </bean>
+    
+    <!-- Inyectar  la dependencia mediante el contructor -->
+    
+    <bean id="myFortuneService"
+    	  class="com.gabriela.springdemo.service.HappyFortuneService">
+    </bean>
+    
+    <bean id="myFortune"
+    	  class="com.gabriela.springdemo.service.HappyFortuneService">
+    </bean>
+    
+ 	<bean id="myCoach"
+ 		class="com.gabriela.springdemo.coachs.TrackCoach">	 
+    	  <!-- Configurar inyeccion de contructor -->	
+    	  <constructor-arg ref="myFortune"/>
+ 	</bean>
+ 	
+ 	<bean id="myCricketCoach"
+ 		  class="com.gabriela.springdemo.coachs.CracketCoach">
+ 		  
+ 		  <!-- Configuracion de inyeccion de setter -->
+ 		  <property name="fortuneService" ref="myFortuneService"></property>
+ 		  <!-- Inyeccion de valores laterales -->
+ 		  <property name="emailAddress" value="${foo.email}"></property>
+ 		  <property name="team" value="${foo.team}"></property>
+ 	
+ 	</bean>
+ 	
+ 	
+ 	
+
+
+</beans>
+
+
+
+
+
