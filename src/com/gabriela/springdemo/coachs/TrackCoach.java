@@ -23,6 +23,16 @@ public class TrackCoach implements Coach {
 		return "Solo haslo" +fortuneService.getFortune();
 	}
 	
+	//agregar methodo de inicio INIT
+	public void doMyStartupStuff() {
+		System.out.println("TrackCoach: inside method doMyStartupStuff");
+	}
+	
+
+	//agregar metodo de  destrucción
+		public void doMyCleanupStuff() {
+			System.out.println("TrackCoach: inside method doMyCleanupStuff");
+		}
 	
 	
 
